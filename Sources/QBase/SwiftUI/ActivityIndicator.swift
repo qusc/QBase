@@ -6,7 +6,7 @@ import UIKit
 public struct ActivityIndicator: UIViewRepresentable {
     let color: UIColor
 
-    init(color: UIColor = .white) {
+    public init(color: UIColor = .white) {
         self.color = color
     }
 
