@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Array {
+public extension Array {
     func compactMap<T>() -> [T] where Element == T? {
         compactMap { $0 }
     }
