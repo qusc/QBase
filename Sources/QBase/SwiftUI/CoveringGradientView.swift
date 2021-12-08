@@ -15,7 +15,7 @@ public struct CoveringGradientView<ContentView>: View where ContentView: View {
     let size: CGFloat
     let isVisible: Bool
     
-    var body: some View {
+    public var body: some View {
         contentView()
             .overlay(
                 LinearGradient(
