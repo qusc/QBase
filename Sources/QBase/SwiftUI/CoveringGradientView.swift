@@ -9,12 +9,13 @@ import SwiftUI
 
 public struct CoveringGradientView<ContentView>: View where ContentView: View {
     let contentView: () -> ContentView
-
+    
     let alignment: Alignment
     let color: Color
     let size: CGFloat
-
-    public var body: some View {
+    let isVisible: Bool
+    
+    var body: some View {
         contentView()
             .overlay(
                 LinearGradient(
@@ -24,15 +25,16 @@ public struct CoveringGradientView<ContentView>: View where ContentView: View {
                     startPoint: unitPoint(for: inverseAlignment(of: alignment)),
                     endPoint: unitPoint(for: alignment)
                 )
-                .frame(
-                    width: alignment == .leading || alignment == .trailing ? size : nil,
-                    height: alignment == .top || alignment == .bottom ? size : nil
-                )
-                .allowsHitTesting(false),
+                    .frame(
+                        width: alignment == .leading || alignment == .trailing ? size : nil,
+                        height: alignment == .top || alignment == .bottom ? size : nil
+                    )
+                    .allowsHitTesting(false)
+                    .opacity(isVisible ? 1 :0),
                 alignment: alignment
             )
     }
-
+    
     func inverseAlignment(of alignment: Alignment) -> Alignment {
         switch alignment {
         case .top:
@@ -47,7 +49,7 @@ public struct CoveringGradientView<ContentView>: View where ContentView: View {
             return alignment
         }
     }
-
+    
     func unitPoint(for alignment: Alignment) -> UnitPoint {
         switch alignment {
         case .top:
@@ -64,14 +66,20 @@ public struct CoveringGradientView<ContentView>: View where ContentView: View {
     }
 }
 
-public extension View {
-    func coveringGradient(alignment: Alignment = .top, color: Color = .white, size: CGFloat = 20)
+extension View {
+    func coveringGradient(
+        alignment: Alignment = .top,
+        color: Color = .white,
+        size: CGFloat = 20,
+        isVisible: Bool = true
+    )
     -> some View {
         CoveringGradientView(
             contentView: { self },
             alignment: alignment,
             color: color,
-            size: size
+            size: size,
+            isVisible: isVisible
         )
     }
 }
