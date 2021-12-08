@@ -66,7 +66,7 @@ public struct CoveringGradientView<ContentView>: View where ContentView: View {
     }
 }
 
-extension View {
+public extension View {
     func coveringGradient(
         alignment: Alignment = .top,
         color: Color = .white,
