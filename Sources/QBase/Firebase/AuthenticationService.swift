@@ -8,7 +8,7 @@ public class AuthenticationService {
             "QBase.UserDatabaseService.verificationID"
     }
 
-    public enum State: Equatable {
+    public enum State: Equatable, Sendable {
         case waitingForPhoneNumber
         case requestingVerificationCode
         case waitingForVerificationCode(verificationID: String)
@@ -103,5 +103,12 @@ public class AuthenticationService {
     public func signOut() {
         try? Auth.auth().signOut()
         state = .waitingForPhoneNumber
+    }
+}
+
+public extension AuthenticationService.State {
+    var userID: String? {
+        if case .authenticated(let userID) = self { return userID }
+        return nil
     }
 }
