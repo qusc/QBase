@@ -28,6 +28,8 @@ public extension Query {
             listenerRegistration = query.addSnapshotListener { (snapshot, error) in
                 if let snapshot = snapshot {
                     _ = target.receive(snapshot.documents)
+                } else {
+                    _ = target.receive([])
                 }
 
                 if let error = error {

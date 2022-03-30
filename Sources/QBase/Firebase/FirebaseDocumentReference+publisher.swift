@@ -34,6 +34,8 @@ public extension DocumentReference {
             listenerRegistration = documentReference.addSnapshotListener { (snapshot, error) in
                 if let snapshot = snapshot, let data = snapshot.data() {
                     _ = target.receive(data)
+                } else {
+                    _ = target.receive([:])
                 }
 
                 if let error = error {
